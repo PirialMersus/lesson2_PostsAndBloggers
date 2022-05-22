@@ -8,7 +8,6 @@ export const inputValidatorMiddleware = (req: Request, res: Response, next: Next
         next()
     } else {
         res.status(400).json({
-            // data: {},
             resultCode: 0,
             errorsMessages: errors.array().map(e => {
                 return {

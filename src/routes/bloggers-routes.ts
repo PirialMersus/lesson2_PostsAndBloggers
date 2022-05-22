@@ -108,7 +108,7 @@ bloggersRouter.get('/', (req: Request, res: Response) => {
             const blogger = bloggersRepository.updateBloggerById(id, name, youtubeUrl)
 
             if (blogger) {
-                res.status(201).send(blogger)
+                res.status(204).send(blogger)
             } else {
                 errorObj.errorsMessages = [{
                     message: 'Required blogger not found',

@@ -79,7 +79,7 @@ postsRouter.get('/', (req: Request, res: Response) => {
             const post = postsRepository.updatePostById(id, title, shortDescription, content, bloggerId)
 
             if (post) {
-                res.status(201).send(post)
+                res.status(204).send(post)
             } else {
                 errorObj.errorsMessages = [{
                     message: 'Required post not found',
