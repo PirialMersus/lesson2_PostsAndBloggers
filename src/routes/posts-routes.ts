@@ -26,9 +26,9 @@ postsRouter.get('/', (req: Request, res: Response) => {
     })
     .post('/',
         // contentTypeMiddleWare('application/json'),
-        body('title').not().isEmpty().withMessage('enter input value in title field'),
-        body('content').not().isEmpty().withMessage('enter input value in content field'),
-        body('bloggerId').not().isEmpty().withMessage('enter input value in bloggerId field'),
+        body('title').trim().not().isEmpty().withMessage('enter input value in title field'),
+        body('content').trim().not().isEmpty().withMessage('enter input value in content field'),
+        body('bloggerId').trim().not().isEmpty().withMessage('enter input value in bloggerId field'),
         body('title').isLength({max: 30}).withMessage('title length should be less then 30'),
         body('shortDescription').isLength({max: 100}).withMessage('shortDescription length should be less then 100'),
         body('bloggerId').isLength({max: 1000}).withMessage('bloggerId length should be less then 1000'),
@@ -59,8 +59,8 @@ postsRouter.get('/', (req: Request, res: Response) => {
             // Indicates the success of this synchronous custom validator
             return true;
         }),
-        body('bloggerId').not().isEmpty().withMessage('enter input value in bloggerId field'),
-        body('title').not().isEmpty().withMessage('enter input value in title field'),
+        body('bloggerId').trim().not().isEmpty().withMessage('enter input value in bloggerId field'),
+        body('title').trim().not().isEmpty().withMessage('enter input value in title field'),
         body('shortDescription').not().isEmpty().withMessage('enter input value in shortDescription field'),
         body('content').not().isEmpty().withMessage('enter input value in content field'),
         body('title').isLength({max: 30}).withMessage('title length should be less then 30'),
