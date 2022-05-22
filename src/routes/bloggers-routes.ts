@@ -26,7 +26,7 @@ bloggersRouter.get('/', (req: Request, res: Response) => {
             }
         })
     .post('/',
-        body('youtubeUrl').trim().not().isEmpty().withMessage('enter input value in youtubeUrl field'),
+        // body('youtubeUrl').trim().not().isEmpty().withMessage('enter input value in youtubeUrl field'),
         body('name').trim().not().isEmpty().withMessage('enter input value in name field'),
         body('youtubeUrl').isLength({max: 100}).withMessage('youtubeUrl length should be less then 100'),
         body('name').isLength({max: 15}).withMessage('name length should be less then 15'),
