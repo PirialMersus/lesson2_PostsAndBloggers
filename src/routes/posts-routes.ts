@@ -34,7 +34,7 @@ postsRouter.get('/', (req: Request, res: Response) => {
         body('content').isLength({max: 1000}).withMessage('content length should be less then 1000'),
         body('shortDescription').isLength({max: 100}).withMessage('shortDescription length should be less then 100'),
         body('bloggerId').isLength({max: 1000}).withMessage('bloggerId length should be less then 1000'),
-        // inputValidatorMiddleware,
+        inputValidatorMiddleware,
         // authMiddleware,
         (req: Request, res: Response) => {
             const newPost = postsRepository.createPost(req.body.title,
