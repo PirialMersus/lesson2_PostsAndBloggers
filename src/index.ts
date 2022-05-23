@@ -61,7 +61,7 @@ export const errorObj: IErrorMessage = {
         message: '',
         field: ''
     }],
-    resultCode: 0
+    resultCode: 1
 }
 
 
