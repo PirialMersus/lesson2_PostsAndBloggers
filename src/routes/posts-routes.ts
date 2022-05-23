@@ -4,6 +4,7 @@ import {bloggers} from "../repositories/db";
 import {postsRepository} from "../repositories/posts-repository";
 import {body, param} from 'express-validator';
 import {inputValidatorMiddleware} from "../middlewares/input-validator-middleware";
+import {authMiddleware} from "../middlewares/auth-middleware";
 
 // put here array with videos
 export const postsRouter = Router({})
@@ -25,6 +26,7 @@ postsRouter.get('/', (req: Request, res: Response) => {
         }
     })
     .post('/',
+        authMiddleware,
         // contentTypeMiddleWare('application/json'),
         body('title').trim().not().isEmpty().withMessage('enter input value in title field'),
         body('shortDescription').trim().not().isEmpty().withMessage('enter input value in shortDescription field'),
@@ -54,6 +56,7 @@ postsRouter.get('/', (req: Request, res: Response) => {
 
         })
     .put('/:id?',
+        authMiddleware,
         body('bloggerId').custom((value, {req}) => {
             if (!bloggers.find(blogger => blogger.id === +value)) {
                 throw new Error('incorrect blogger id');
@@ -92,6 +95,7 @@ postsRouter.get('/', (req: Request, res: Response) => {
             }
         })
     .delete('/:id?',
+        authMiddleware,
         param('id').not().isEmpty().withMessage('enter id value in params'),
         inputValidatorMiddleware,
         (req: Request, res: Response) => {

@@ -39,7 +39,6 @@ app.use(cors());
 // app.use(contentTypeMiddleWare);
 // app.use(blackListMiddleWare);
 // app.use(countMiddleWare);
-app.use(authMiddleware)
 app.use(bodyParser.json());
 
 

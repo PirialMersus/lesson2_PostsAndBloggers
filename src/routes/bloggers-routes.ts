@@ -4,6 +4,7 @@ import {errorObj} from "../index";
 import {bloggers} from "../repositories/db";
 import {inputValidatorMiddleware} from "../middlewares/input-validator-middleware";
 import {body, param} from "express-validator";
+import {authMiddleware} from "../middlewares/auth-middleware";
 
 // put here array with videos
 export const bloggersRouter = Router({})
@@ -27,6 +28,8 @@ bloggersRouter.get('/', (req: Request, res: Response) => {
         })
     .post('/',
         // body('youtubeUrl').trim().not().isEmpty().withMessage('enter input value in youtubeUrl field'),
+        authMiddleware,
+
         body('name').trim().not().isEmpty().withMessage('enter input value in name field'),
         body('youtubeUrl').isLength({max: 100}).withMessage('youtubeUrl length should be less then 100'),
         body('name').isLength({max: 15}).withMessage('name length should be less then 15'),
@@ -48,6 +51,7 @@ bloggersRouter.get('/', (req: Request, res: Response) => {
 
         })
     .put('/:id?',
+        authMiddleware,
         param('id').trim().not().isEmpty().withMessage('enter id value in params'),
         body('name').trim().not().isEmpty().withMessage('enter input value in name field'),
         // body('youtubeUrl').not().isEmpty().withMessage('enter input value in youtubeUrl field'),
@@ -118,6 +122,7 @@ bloggersRouter.get('/', (req: Request, res: Response) => {
             }
         })
     .delete('/:id?',
+        authMiddleware,
         param('id').not().isEmpty().withMessage('enter id value in params'),
         inputValidatorMiddleware,
         (req: Request, res: Response) => {
