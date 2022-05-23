@@ -43,16 +43,10 @@ app.use(authMiddleware)
 app.use(bodyParser.json());
 
 
-
 const port = process.env.PORT || 5000;
 
 
 interface IErrorMessage {
-    data: {
-        additionalProp1: string,
-        additionalProp2: string,
-        additionalProp3: string
-    },
     errorsMessages: [
         {
             message: string,
@@ -63,11 +57,6 @@ interface IErrorMessage {
 }
 
 export const errorObj: IErrorMessage = {
-    data: {
-        additionalProp1: '',
-        additionalProp2: '',
-        additionalProp3: '',
-    },
     errorsMessages: [{
         message: '',
         field: ''
