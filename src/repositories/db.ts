@@ -1,46 +1,46 @@
-export interface blogger {
+export interface IBlog {
     id: number,
     name: string,
     youtubeUrl: string
 }
-export const bloggers: Array<blogger> = [
+export const blogs: Array<IBlog> = [
     {
         id: 0,
-        name: 'first blogger',
+        name: 'first blog',
         youtubeUrl: 'https://www.youtube.com/channel/UCNH9VJDJVt8pXg4TEUHh76w'
     },
     {
         id: 1,
-        name: 'second blogger',
+        name: 'second blog',
         youtubeUrl: 'https://www.youtube.com/c/ITKAMASUTRA'
     },
 ]
 
 
 
-export interface post {
+export interface IPost {
     id: number,
-    bloggerId: number,
+    blogId: number,
     title: string,
     shortDescription: string,
     content: string,
-    bloggerName: string
+    blogName: string
 }
-export const posts: Array<post> = [
+export const posts: Array<IPost> = [
     {
         id: 0,
-        bloggerId: 0,
+        blogId: 0,
         title: 'first post',
         shortDescription: 'short description 1',
         content: 'content of the first post',
-        bloggerName: 'first blogger'
+        blogName: 'zero blog'
     },
     {
         id: 1,
-        bloggerId: 1,
+        blogId: 1,
         title: 'second post',
         shortDescription: 'short description 2',
         content: 'content of the second post',
-        bloggerName: 'firs blogger'
+        blogName: 'first blog'
     }
 ]

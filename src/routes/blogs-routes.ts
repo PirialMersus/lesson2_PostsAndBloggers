@@ -1,27 +1,27 @@
 import {Request, Response, Router} from 'express'
-import {bloggersRepository} from "../repositories/bloggers-repository";
+import {blogsRepository} from "../repositories/blogs-repository";
 import {errorObj} from "../index";
-import {bloggers} from "../repositories/db";
+import {blogs} from "../repositories/db";
 import {inputValidatorMiddleware} from "../middlewares/input-validator-middleware";
 import {body, param} from "express-validator";
 import {authMiddleware} from "../middlewares/auth-middleware";
 
 // put here array with videos
-export const bloggersRouter = Router({})
+export const blogsRouter = Router({})
 
-bloggersRouter.get('/', (req: Request, res: Response) => {
-    const bloggers = bloggersRepository.getBloggers()
-    res.send(bloggers);
+blogsRouter.get('/', (req: Request, res: Response) => {
+    const blogs = blogsRepository.getBlogs()
+    res.send(blogs);
 })
-    .get('/:bloggerId?',
-        param('bloggerId').not().isEmpty().withMessage('enter bloggerId value in params'),
+    .get('/:blogId?',
+        param('blogId').not().isEmpty().withMessage('enter blogId value in params'),
         inputValidatorMiddleware,
         (req: Request, res: Response) => {
             const id = +req.params.bloggerId;
 
-            const blogger = bloggersRepository.getBloggersById(id)
-            if (blogger) {
-                res.send(blogger)
+            const blog = blogsRepository.getBlogById(id)
+            if (blog) {
+                res.send(blog)
             } else {
                 res.send(404)
             }
@@ -45,7 +45,7 @@ bloggersRouter.get('/', (req: Request, res: Response) => {
         inputValidatorMiddleware,
         (req: Request, res: Response) => {
 
-            const newBlogger = bloggersRepository.createBlogger(req.body.name, req.body.youtubeUrl)
+            const newBlogger = blogsRepository.createBlogger(req.body.name, req.body.youtubeUrl)
 
             res.status(201).send(newBlogger)
 
@@ -109,13 +109,13 @@ bloggersRouter.get('/', (req: Request, res: Response) => {
             // }
 
             const id = +req.params.id;
-            const blogger = bloggersRepository.updateBloggerById(id, name, youtubeUrl)
+            const blog = blogsRepository.updateBlogById(id, name, youtubeUrl)
 
-            if (blogger) {
-                res.status(204).send(blogger)
+            if (blog) {
+                res.status(204).send(blog)
             } else {
                 errorObj.errorsMessages = [{
-                    message: 'Required blogger not found',
+                    message: 'Required blog not found',
                     field: 'none',
                 }]
                 res.status(404).send(errorObj)
@@ -128,19 +128,19 @@ bloggersRouter.get('/', (req: Request, res: Response) => {
         (req: Request, res: Response) => {
             const id = +req.params.id;
 
-            const isDeleted = bloggersRepository.deleteBloggerById(id)
+            const isDeleted = blogsRepository.deleteBlogById(id)
 
 
             if (!isDeleted) {
                 errorObj.errorsMessages = [{
-                    message: 'Required blogger not found',
+                    message: 'Required blog not found',
                     field: 'none',
                 }]
                 res.status(404).send(errorObj)
             } else {
-                for (let i = 0; i < bloggers.length; i++) {
-                    if (bloggers[i].id === id) {
-                        bloggers.splice(i, 1)
+                for (let i = 0; i < blogs.length; i++) {
+                    if (blogs[i].id === id) {
+                        blogs.splice(i, 1)
                         break;
                     }
                 }

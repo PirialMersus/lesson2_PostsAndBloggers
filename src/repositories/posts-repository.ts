@@ -1,4 +1,4 @@
-import {bloggers, posts} from "./db";
+import {blogs, posts} from "./db";
 
 export const postsRepository = {
     getPosts() {
@@ -29,21 +29,21 @@ export const postsRepository = {
         post.title = title
         post.shortDescription = shortDescription
         post.content = content
-        post.bloggerId = bloggerId
+        post.blogId = bloggerId
 
         return post
 
     },
-    createPost(title: string, shortDescription: string, content: string, bloggerId: number) {
-        const bloggerName = bloggers.find(blogger => blogger.id === bloggerId)
-        if (!bloggerName) return false
+    createPost(title: string, shortDescription: string, content: string, blogId: number) {
+        const blogName = blogs.find(blog => blog.id === blogId)
+        if (!blogName) return false
         const newPost = {
             id: posts.length,
             title,
             shortDescription,
             content,
-            bloggerId,
-            bloggerName: bloggerName ? bloggerName.name : 'unknown'
+            blogId,
+            blogName: blogName ? blogName.name : 'unknown'
         }
         posts.push(newPost)
         return newPost

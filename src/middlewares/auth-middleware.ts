@@ -8,7 +8,7 @@ import {NextFunction, Request, Response} from "express";
 //     }
 // }
 export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
-    console.log('req.headers.authorization', req.headers.authorization)
+    // console.log('req.headers.authorization', req.headers.authorization)
     if (req.headers.authorization) {
         const base64FirstWorld = req.headers.authorization.split(' ')[0];
         const base64Credentials = req.headers.authorization.split(' ')[1];

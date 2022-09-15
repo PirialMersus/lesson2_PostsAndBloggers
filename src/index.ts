@@ -1,10 +1,10 @@
 import express, {NextFunction, Request, Response} from 'express';
 import cors from 'cors';
 import bodyParser from "body-parser";
-import {bloggers} from "./repositories/db";
-import {bloggersRepository} from "./repositories/bloggers-repository";
+import {blogs, posts} from "./repositories/db";
+import {blogsRepository} from "./repositories/blogs-repository";
 import {postsRepository} from "./repositories/posts-repository";
-import {bloggersRouter} from "./routes/bloggers-routes";
+import {blogsRouter} from "./routes/blogs-routes";
 import {postsRouter} from "./routes/posts-routes";
 import {authMiddleware} from "./middlewares/auth-middleware";
 
@@ -52,7 +52,6 @@ interface IErrorMessage {
             field: string
         }
     ],
-    resultCode: number
 }
 
 export const errorObj: IErrorMessage = {
@@ -60,7 +59,6 @@ export const errorObj: IErrorMessage = {
         message: '',
         field: ''
     }],
-    resultCode: 1
 }
 
 
@@ -68,8 +66,13 @@ app.get('/', (req: Request, res: Response) => {
     res.send('Hello: World');
 })
 
-app.use('/bloggers', bloggersRouter)
+app.use('/blogs', blogsRouter)
 app.use('/posts', postsRouter)
+app.delete('/testing/all-data', (req: Request, res: Response) => {
+    blogs.length = 0
+    posts.length = 0
+    res.send(204)
+})
 
 
 app.listen(port, () => {
