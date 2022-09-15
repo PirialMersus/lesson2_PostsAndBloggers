@@ -36,7 +36,17 @@ postsRouter.get('/', (req: Request, res: Response) => {
         body('content').isLength({max: 1000}).withMessage('content length should be less then 1000'),
         body('shortDescription').isLength({max: 100}).withMessage('shortDescription length should be less then 100'),
         body('blogId').isLength({max: 1000}).withMessage('blogId length should be less then 1000'),
+        body('blogId').custom((value, {req}) => {
+            // console.log('+req.body.blogId', +req.body.blogId)
+            if (!+req.body.blogId && +req.body.blogId !== 0) {
+                console.log('+req.body.blogId', +req.body.blogId)
+                throw new Error('enter correct blogId value !!!!!!');
+            }
+            // Indicates the success of this synchronous custom validator
+            return true;
+        }),
         inputValidatorMiddleware,
+
         // authMiddleware,
         (req: Request, res: Response) => {
             const newPost = postsRepository.createPost(req.body.title,
@@ -47,7 +57,7 @@ postsRouter.get('/', (req: Request, res: Response) => {
             if (!newPost) {
                 errorObj.errorsMessages = [{
                     message: 'incorrect blog id',
-                    field: 'bloggerId',
+                    field: 'blogId',
                 }]
                 res.status(400).send(errorObj)
             }
