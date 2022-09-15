@@ -4,10 +4,10 @@ export const postsRepository = {
     getPosts() {
         return posts
     },
-    getPostsById(id: number) {
+    getPostsById(id: string) {
         return posts.find(post => post.id === id)
     },
-    deletePostById(id: number) {
+    deletePostById(id: string) {
         let isDeleted = false;
         for (let i = 0; i < posts.length; i++) {
             if (posts[i].id === id) {
@@ -18,11 +18,11 @@ export const postsRepository = {
         }
         return isDeleted
     },
-    updatePostById(id: number,
+    updatePostById(id: string,
                    title: string,
                    shortDescription: string,
                    content: string,
-                   bloggerId: number) {
+                   bloggerId: string) {
         const post = posts.find((post) => post.id === id);
         if (!post) return false
 
@@ -34,11 +34,11 @@ export const postsRepository = {
         return post
 
     },
-    createPost(title: string, shortDescription: string, content: string, blogId: number) {
+    createPost(title: string, shortDescription: string, content: string, blogId: string) {
         const blogName = blogs.find(blog => blog.id === blogId)
         if (!blogName) return false
         const newPost = {
-            id: posts.length,
+            id: posts.length.toString(),
             title,
             shortDescription,
             content,

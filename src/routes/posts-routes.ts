@@ -15,7 +15,7 @@ postsRouter.get('/', (req: Request, res: Response) => {
 })
     .get('/:postId', (req: Request, res: Response) => {
 
-        const id = +req.params.postId;
+        const id = req.params.postId;
 
         const post = postsRepository.getPostsById(id)
 
@@ -42,7 +42,7 @@ postsRouter.get('/', (req: Request, res: Response) => {
             const newPost = postsRepository.createPost(req.body.title,
                 req.body.shortDescription,
                 req.body.content,
-                +req.body.blogId)
+                req.body.blogId)
 
             if (!newPost) {
                 errorObj.errorsMessages = [{
@@ -58,7 +58,7 @@ postsRouter.get('/', (req: Request, res: Response) => {
     .put('/:id?',
         authMiddleware,
         body('blogId').custom((value, {req}) => {
-            if (!blogs.find(blogger => blogger.id === +value)) {
+            if (!blogs.find(blogger => blogger.id === value)) {
                 throw new Error('incorrect blogger id');
             }
             // Indicates the success of this synchronous custom validator
@@ -78,9 +78,9 @@ postsRouter.get('/', (req: Request, res: Response) => {
             const title = req.body.title;
             const shortDescription = req.body.shortDescription;
             const content = req.body.content;
-            const blogId = +req.body.blogId;
+            const blogId = req.body.blogId;
 
-            const id = +req.params.id;
+            const id = req.params.id;
 
             const post = postsRepository.updatePostById(id, title, shortDescription, content, blogId)
 
@@ -99,7 +99,7 @@ postsRouter.get('/', (req: Request, res: Response) => {
         param('id').not().isEmpty().withMessage('enter id value in params'),
         inputValidatorMiddleware,
         (req: Request, res: Response) => {
-            const id = +req.params.id;
+            const id = req.params.id;
             // if (!req.params.id) {
             //     errorObj.errorsMessages = [{
             //         message: 'enter input value',

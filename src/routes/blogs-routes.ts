@@ -17,7 +17,7 @@ blogsRouter.get('/', (req: Request, res: Response) => {
         param('blogId').not().isEmpty().withMessage('enter blogId value in params'),
         inputValidatorMiddleware,
         (req: Request, res: Response) => {
-            const id = +req.params.bloggerId;
+            const id = req.params.bloggerId;
 
             const blog = blogsRepository.getBlogById(id)
             if (blog) {
@@ -108,7 +108,7 @@ blogsRouter.get('/', (req: Request, res: Response) => {
             //     res.status(400).send(errorObj)
             // }
 
-            const id = +req.params.id;
+            const id = req.params.id;
             const blog = blogsRepository.updateBlogById(id, name, youtubeUrl)
 
             if (blog) {
@@ -126,7 +126,7 @@ blogsRouter.get('/', (req: Request, res: Response) => {
         param('id').not().isEmpty().withMessage('enter id value in params'),
         inputValidatorMiddleware,
         (req: Request, res: Response) => {
-            const id = +req.params.id;
+            const id = req.params.id;
 
             const isDeleted = blogsRepository.deleteBlogById(id)
 
