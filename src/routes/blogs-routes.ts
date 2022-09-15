@@ -17,7 +17,7 @@ blogsRouter.get('/', (req: Request, res: Response) => {
         param('blogId').not().isEmpty().withMessage('enter blogId value in params'),
         inputValidatorMiddleware,
         (req: Request, res: Response) => {
-            const id = req.params.bloggerId;
+            const id = req.params.blogId;
 
             const blog = blogsRepository.getBlogById(id)
             if (blog) {
